@@ -1,0 +1,21 @@
+[features]
+seeds = true
+skip-lint = false
+
+[programs.localnet]
+vault = "9EazK4wyfzy7XzLPnERbdzLhu95KeJTsKejjB2WZzN8h"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "localnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "ts-node -T tests/client.ts"
+
+[toolchain]
+anchor_version = "0.31.1"
+
+

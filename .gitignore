@@ -1,0 +1,50 @@
+# macOS
+.DS_Store
+
+# Node/TypeScript
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tsbuildinfo
+**/node_modules/
+
+# Rust / Cargo
+/target/
+**/*.rs.bk
+**/target/
+
+# Anchor / Solana
+.anchor/
+.target/
+/target/deploy/
+/target/idl/
+/target/types/
+**/.anchor/
+**/.target/
+**/target/deploy/
+**/target/idl/
+**/target/types/
+
+# Local validator ledger
+
+/test-ledger/
+**/test-ledger/
+
+# Build outputs
+/dist/
+/build/
+**/dist/
+**/build/
+
+# Logs
+*.log
+**/*.log
+
+# Environment files
+.env
+.env.*
+
+# IDE/editor
+.vscode/
+.idea/
