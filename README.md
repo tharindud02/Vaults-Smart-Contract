@@ -62,6 +62,12 @@ rustc --version
 
 ---
 
+## ▶️ How to Run
+
+- Quick steps are below in Quick Start. For a detailed, copy‑paste guide (localnet + devnet), see `HOW_TO_RUN.md`.
+
+---
+
 ## 🚀 Quick Start (Localnet)
 
 1) Start a local validator (terminal A):
@@ -125,7 +131,7 @@ anchor build && anchor deploy
 Create `tests/client.ts` (or a script in `scripts/`) and run with `ts-node`. Example:
 
 ```ts
-import * as anchor from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import { PublicKey, SystemProgram } from "@solana/web3.js";
 
 (async () => {
@@ -168,7 +174,7 @@ import { PublicKey, SystemProgram } from "@solana/web3.js";
 
 Run:
 ```bash
-npx ts-node tests/client.ts
+npx ts-node -T tests/client.ts
 ```
 
 ---
