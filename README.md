@@ -1,4 +1,5 @@
 # Vault-SC (Solana + Anchor)
+
 A minimal **Vault** smart contract (program) on Solana built with **Anchor**. Each user gets a **Program Derived Address (PDA)** vault to deposit SOL and withdraw it later, with owner-only access control.
 
 > This README is optimized for developing in **Cursor**. It includes exact commands you can copy‑paste.
@@ -23,6 +24,7 @@ A minimal **Vault** smart contract (program) on Solana built with **Anchor**. Ea
 - **Access Control**: Anchor account constraints + custom error on unauthorized withdraw.
 
 **Seeds**
+
 ```
 [b"vault", user.key().as_ref()]
 ```
@@ -52,6 +54,7 @@ Vault-SC/
 - Anchor CLI
 
 Check they’re on your PATH:
+
 ```bash
 solana --version
 anchor --version
@@ -70,28 +73,33 @@ rustc --version
 
 ## 🚀 Quick Start (Localnet)
 
-1) Start a local validator (terminal A):
+1. Start a local validator (terminal A):
+
 ```bash
 solana-test-validator --reset
 ```
 
-2) In another terminal (terminal B), configure localnet and fund your wallet:
+2. In another terminal (terminal B), configure localnet and fund your wallet:
+
 ```bash
 solana config set -ul
 solana airdrop 5
 ```
 
-3) Build and deploy the program:
+3. Build and deploy the program:
+
 ```bash
 anchor build
 anchor deploy
 ```
 
-4) When `anchor deploy` prints a **Program Id**, paste it into:
+4. When `anchor deploy` prints a **Program Id**, paste it into:
+
 - `programs/vault/src/lib.rs` → `declare_id!("YOUR_PROGRAM_ID_HERE");`
 - `Anchor.toml` under `[programs.localnet]`
 
-5) Rebuild once after updating the Program Id:
+5. Rebuild once after updating the Program Id:
+
 ```bash
 anchor build && anchor deploy
 ```
@@ -101,19 +109,22 @@ anchor build && anchor deploy
 ## 🧩 Instruction & Account Reference
 
 ### Instructions
-| Name        | Purpose                                   | Accounts (short)                        |
-|-------------|--------------------------------------------|-----------------------------------------|
-| `initialize`| Create the user's PDA vault               | `vault(pda, init)`, `user(signer)`      |
-| `deposit`   | Transfer SOL into the vault (CPI)         | `vault(pda, mut)`, `user(signer, mut)`, `system_program` |
-| `withdraw`  | Move SOL from vault back to the authority | `vault(pda, mut)`, `user(signer, mut)`  |
+
+| Name         | Purpose                                   | Accounts (short)                                         |
+| ------------ | ----------------------------------------- | -------------------------------------------------------- |
+| `initialize` | Create the user's PDA vault               | `vault(pda, init)`, `user(signer)`                       |
+| `deposit`    | Transfer SOL into the vault (CPI)         | `vault(pda, mut)`, `user(signer, mut)`, `system_program` |
+| `withdraw`   | Move SOL from vault back to the authority | `vault(pda, mut)`, `user(signer, mut)`                   |
 
 ### Accounts
+
 - **VaultAccount**
   - `authority: Pubkey` (owner)
   - `bump: u8` (pda bump)
   - Space: `8 (disc) + 32 + 1 = 41` bytes
 
 ### PDA Derivation
+
 ```rust
 #[account(
   init,
@@ -149,30 +160,40 @@ import { PublicKey, SystemProgram } from "@solana/web3.js";
   );
 
   // Initialize user vault
-  await program.methods.initialize().accounts({
-    vault: vaultPda,
-    user,
-    systemProgram: SystemProgram.programId,
-  }).rpc();
+  await program.methods
+    .initialize()
+    .accounts({
+      vault: vaultPda,
+      user,
+      systemProgram: SystemProgram.programId,
+    })
+    .rpc();
 
   // Deposit 100_000 lamports (0.0001 SOL)
-  await program.methods.deposit(new anchor.BN(100_000)).accounts({
-    vault: vaultPda,
-    user,
-    systemProgram: SystemProgram.programId,
-  }).rpc();
+  await program.methods
+    .deposit(new anchor.BN(100_000))
+    .accounts({
+      vault: vaultPda,
+      user,
+      systemProgram: SystemProgram.programId,
+    })
+    .rpc();
 
   // Withdraw 50_000 lamports
-  await program.methods.withdraw(new anchor.BN(50_000)).accounts({
-    vault: vaultPda,
-    user,
-  }).rpc();
+  await program.methods
+    .withdraw(new anchor.BN(50_000))
+    .accounts({
+      vault: vaultPda,
+      user,
+    })
+    .rpc();
 
   console.log("Done");
 })();
 ```
 
 Run:
+
 ```bash
 npx ts-node -T tests/client.ts
 ```
@@ -220,6 +241,7 @@ Update `declare_id!` and `Anchor.toml` with the new **Program Id** if you redepl
 ---
 
 ## 📄 License
+
 MIT (or your choice)
 
 ---
